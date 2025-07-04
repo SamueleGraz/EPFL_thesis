@@ -133,7 +133,7 @@ Here the while loop:
 while IFS= read -r i; do echo "Submitting job for file: $i"; sbatch --export=FILE="$i" trial_loop.bash; done < sequence.txt
 ```
 
-
+It worked and now I have the STAR results that I need to understand.
 
 
 
