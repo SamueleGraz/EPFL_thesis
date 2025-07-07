@@ -136,6 +136,60 @@ while IFS= read -r i; do echo "Submitting job for file: $i"; sbatch --export=FIL
 It worked and now I have the STAR results that I need to understand.
 
 
+07.07.2025
+Today I filtered the readspergene files in order to have just the Gene ID and the first column where I have the unstranded reads. In order to do so, I run the following commands:
+
+```
+#!/usr/bin/env bash
+
+#SBATCH --job-name=filter_unstranded
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --time=24:00:00
+#SBATCH --qos=serial
+#SBATCH --partition=bigmem
+#SBATCH --mem=100GB
+
+# Variable passed externally
+FILE="$TABLE"
+
+# Check that the variable has been passed
+if [ -z "$FILE" ]; then
+    echo "Error: No file specified. Use --export=TABLE=nomefile"
+    exit 1
+fi
+
+# Extract GeneID and Unstranded
+echo "Filtering the file: $FILE"
+cut -f1,2 "$FILE" > "${FILE%.out.tab}_unstranded.txt"
+echo "Done: created ${FILE%.out.tab}_unstranded.txt"
+```
+Then run the following loop in order to create different slurm files for each ReadsPerGene.out.tab file:
+```
+for f in *ReadsPerGene.out.tab; do sbatch --export=TABLE="$f" 03_table_filtering.bash; done
+```
+Then I moved all those files in a new folder and I sort the ID so as to merge all the files in one unique one:
+```
+#create folder
+mkdir gene_count_unstranded
+
+#move unstranded files
+mv *unstranded* gene_count_unstranded/
+
+#sort files by ID
+for f in *_unstranded.txt; do     sort -k1,1 "$f" > "${f%.txt}_sorted.txt"; done
+
+#create a header.txt file where to keep the names of the files. It will be useful in order to create the header for the final table:
+echo -e "GeneID\t$(ls *_unstranded_sorted.txt | sed 's/_ReadsPerGene_unstranded_sorted.txt//g' | paste -sd '\t')" > header.txt
+
+#Then I created a merged.txt file where to merge all the files
+for f in *_unstranded_sorted.txt; do     if [[ "$f" != "merged.txt" ]]; then         join -a1 -a2 -e 0 -o auto -t $'\t' merged.txt "$f" > tmp && mv tmp merged.txt;     fi; done
+
+#at this point I created the header with the files previously made
+cat header.txt merged.txt > final_unstranded_counts.tsv
+```
+Now I have the final table with all the genes and the unstranded readspergene according to the sample
+
 
 
 
