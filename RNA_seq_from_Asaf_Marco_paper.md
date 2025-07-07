@@ -137,6 +137,7 @@ It worked and now I have the STAR results that I need to understand.
 
 
 07.07.2025
+
 Today I filtered the readspergene files in order to have just the Gene ID and the first column where I have the unstranded reads. In order to do so, I run the following commands:
 
 ```
