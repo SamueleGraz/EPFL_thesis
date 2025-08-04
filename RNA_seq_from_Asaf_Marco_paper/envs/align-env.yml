@@ -1,0 +1,9 @@
+name: align
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - star
+  - samtools    
+  - deeptools
+  - qualimap
