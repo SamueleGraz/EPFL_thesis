@@ -4,7 +4,8 @@ library(DESeq2)
 library(readxl)
 library(dplyr)
 
-#I filtered the contrasts applying padj lower than 0.01 and log2fc higher than 2
+#INTRO
+#I have to filter the contrasts applying padj lower than 0.01 and log2fc higher than 2
 #like what it was done in the marco's paper
 #I discover that they compared the contrast between early_basal, early_late and late_reactivated
 #So I need to find the contrast between those conditions as well
@@ -77,7 +78,6 @@ DE_Early_vs_Late_original <- read_excel("nRNA-seq_marco_basal_vs_early_original.
                                                      sheet = "Early_vs_Late")
 DE_Late_vs_Reactivated_original <- read_excel("nRNA-seq_marco_basal_vs_early_original.xlsx", 
                                                      sheet = "Late_vs_Reactivated")
-View(DE_Basal_Vs_Early_original)
 
 #change name of the gene name in "Gene"
 colnames(DE_Basal_Vs_Early_original)[1] <- "Gene"
@@ -86,13 +86,6 @@ colnames(DE_Late_vs_Reactivated_original)[1] <- "Gene"
 colnames(de_early_vs_late_filtered)[2] <- "Gene"
 colnames(de_late_vs_reactivated_filtered)[2] <- "Gene"
 colnames(de_basal_vs_early_filtered)[2] <- "Gene"
-
-nrow(DE_Basal_Vs_Early_original)
-nrow(de_basal_vs_early_filtered)
-nrow(DE_Early_vs_Late_original)
-nrow(de_early_vs_late_filtered)
-nrow(DE_Late_vs_Reactivated_original)
-nrow(de_late_vs_reactivated_filtered)
 
 #Now we can join accordingly the tables in order to check how many genes are in common
 
@@ -154,7 +147,7 @@ combined <- (Basal_vs_Early_Venn + Early_vs_Late_Venn) / Late_vs_Reactivated_Ven
 
 combined
 
+#The results are very strange, perhaps I misinterpreted the basis on which the contrast is made,
+#I have to try to reverse the basis of each comparison made
 
 
-#I risultati sono molto strani, forse ho interpretato male la base su cui è fatto il contrast,
-#devo provare a invertire le basi di ogni comparazione fatta
