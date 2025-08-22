@@ -1,1 +1,10 @@
+I used tophat for the alignment because they affermed they used cufflinks 2.2.0 and I found that it was mostly used with tophat:
+https://cole-trapnell-lab.github.io/cufflinks/releases/v2.2.0/
 
+python version was selected so to make tophat working
+
+tophat=2.0.13
+bowtie2=2.2.5
+samtools=1.22.1
+python=2.7.18
+subread=2.0.1 
