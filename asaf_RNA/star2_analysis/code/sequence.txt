@@ -1,0 +1,12 @@
+RNA_Basal_rep1
+RNA_Basal_rep2
+RNA_Basal_rep3
+RNA_Early_rep1
+RNA_Early_rep2
+RNA_Early_rep3
+RNA_Late_rep1
+RNA_Late_rep2
+RNA_Late_rep3
+RNA_Reactivated_rep1
+RNA_Reactivated_rep2
+RNA_Reactivated_rep3
