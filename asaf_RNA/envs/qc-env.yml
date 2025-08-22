@@ -3,6 +3,6 @@ channels:
   - bioconda
   - conda-forge
 dependencies:
-  - fastqc
-  - skewer
-  - qualimap
+  - fastqc=0.12.1
+  - skewer=0.2.2
+  - qualimap=2.3p
